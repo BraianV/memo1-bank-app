@@ -1,6 +1,7 @@
 package com.aninfo;
 
 import com.aninfo.model.Account;
+import com.aninfo.model.Operation;
 import com.aninfo.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -73,6 +75,22 @@ public class Memo1BankApp {
 	@PutMapping("/accounts/{cbu}/deposit")
 	public Account deposit(@PathVariable Long cbu, @RequestParam Double sum) {
 		return accountService.deposit(cbu, sum);
+	}
+
+
+	@GetMapping("/accounts/{cbu}/transactions")
+	public List<Operation> getAllTransaction(@PathVariable Long cbu) {
+		return accountService.getAllTransactions(cbu);
+	}
+
+	@GetMapping("/accounts/{id}/operation")
+	public Operation getOperation(@PathVariable Integer id) {
+		return accountService.getOperation(id);
+	}
+
+	@DeleteMapping("/operation/{id}")
+	public void deleteOperation(@PathVariable Integer id){
+		accountService.deleteOperation(id);
 	}
 
 	@Bean
